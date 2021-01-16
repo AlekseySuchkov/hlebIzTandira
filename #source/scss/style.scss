@@ -1,0 +1,654 @@
+//<МИКСИНЫ>===============================================================================================
+@import "_mixins";
+//</МИКСИНЫ>===============================================================================================
+
+//<ШРИФТЫ>===============================================================================================
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+@font-face {
+	font-family: 'tangak';
+	src: url('../fonts/tangak.eot');
+	src: local('☺'), url('../fonts/tangak.woff') format('woff'), url('../fonts/tangak.ttf') format('truetype'), url('../fonts/tangak.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'neucha';
+	src: url('../fonts/neucha.eot');
+	src: local('☺'), url('../fonts/neucha.woff') format('woff'), url('../fonts/neucha.ttf') format('truetype'), url('../fonts/neucha.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+//<Подключаем шрифты>=======================================================================================
+
+//</Подключаем шрифты>=======================================================================================
+
+//<Иконочные шрифты>==========================================================================================
+
+//</Иконочные шрифты>==========================================================================================
+
+//<Шрифт по умолчанию>==========================================================================================
+$fontfamily: "neucha";
+//</Шрифт по умолчанию>==========================================================================================
+
+//</ШРИФТЫ>=======================================================================================================
+
+//<ПЕРЕМЕННЫЕ>===========================================================================================================
+$minwidth: 320px;
+$mw: 1170;
+$md1: $mw + 12;
+$md2: 980.98;
+$md3: 650.98;
+$md4: 479.98;
+//</ПЕРЕМЕННЫЕ>===========================================================================================================
+
+//<ОБНУЛЕНИЕ, ОБЩИЕ ПАРАМЕТРЫ>===============================================================================================
+@import "_null";
+body {
+	color: #000;
+	font-size: 14px;
+	font-family: 'neucha';
+	&.lock {
+		overflow: hidden;
+	}
+}
+//</ОБНУЛЕНИЕ, ОБЩИЕ ПАРАМЕТРЫ>===============================================================================================
+
+//<ОБОЛОЧКА>===========================================================================================================
+.wrapper {
+  width: 100%;
+	min-height: 100%;
+	overflow: hidden;
+	position: relative;
+	@include flexbox();
+	flex-direction: column;
+	&.loaded {
+	}
+}
+//</ОБОЛОЧКА>===========================================================================================================
+
+//<ОСНОВНАЯ СЕТКА>===========================================================================================================
+.container {
+	max-width: $mw + px;
+	margin: 0 auto;
+	width: 100%;
+	@media (max-width: $md1+px) {
+		max-width: 970px;
+	}
+	@media (max-width: $md2+px) {
+		max-width: 630px;
+	}
+	@media (max-width: $md3+px) {
+		max-width: none;
+		padding: 0 10px;
+	}
+	
+}
+//</ОСНОВНАЯ СЕТКА>===========================================================================================================
+
+//<ПОДКЛЮЧЕНИЕ ФАЙЛОВ UI СТИЛЕЙ, ФОРМ И ГОТОВЫХ КЛАССОВ>====================================================================================================
+@import "_forms.scss";
+@import "_ui.scss";
+//</ПОДКЛЮЧЕНИЕ ФАЙЛОВ UI СТИЛЕЙ, ФОРМ И ГОТОВЫХ КЛАССОВ>====================================================================================================
+
+//<ПОДКЛЮЧЕНИЕ ФАЙЛОВ СТИЛЕЙ СТРАНИЦ И ЭЛЕМЕНТОВ>====================================================================================================
+//@import "../../js/fancybox/jquery.fancybox.scss";
+//@import "datepicker.scss";
+//@import "fontawesome.scss";
+//@import "popover.min.scss";
+//@import "baguetteBox.scss";
+//@import "pagging.scss";
+//@import "icons.scss";
+//@import "popup.scss";
+@import "_header";
+//@import "footer.scss";
+//@import "home.scss";
+//</ПОДКЛЮЧЕНИЕ ФАЙЛОВ СТИЛЕЙ СТРАНИЦ И ЭЛЕМЕНТОВ>====================================================================================================
+
+//<ОСНОВНОЙ БЛОК>====================================================================================================
+.mainblock {
+	position: relative;
+	flex: 1 1 auto;
+	@include flexbox();
+	justify-content: center;
+	//align-items: center;
+	text-align: center;
+	padding: 90px 0 50px 0;
+	&__content {
+			position: relative;
+			z-index: 1;
+			flex: 1 1 auto;
+			text-align: center;
+			align-items: center;
+			
+			.container{
+				height: 100%;
+				@include flexbox();
+				flex-direction: column;
+				justify-content: space-around;
+				align-items: center;
+
+			}
+			
+		}
+    &__footer{
+	    @include flexbox();
+	    flex-direction: column;
+}
+		&__title {
+			font-family: 'neucha';
+			font-size: 50px;
+			line-height:60px ;
+			color: white;
+			margin: 0 0 15px 0;
+			
+			@media (max-width: $md3+px){
+				font-size: 40px;
+				line-height: 50px;
+			}
+		}
+
+	
+
+		&__btn {
+			margin: 0 0 50px 0;
+		}
+
+		&__arrows{
+		position: relative;
+		-webkit-animation: arrow 1.5s infinite ease;
+		        animation: arrow 1.5s infinite ease;
+		}
+
+		&__image {
+			position: absolute;
+			width: 100% ;
+			height: 100% ;
+			left: 0;
+			top: 0;
+			
+		}
+}
+@-webkit-keyframes arrow {
+	0%{top:0;
+		 
+	}
+	50%{top:20px;
+		
+	}
+	100%{top: 0;
+	 
+	}
+}
+@keyframes arrow {
+	0%{top:0;
+		 
+	}
+	50%{top:20px;
+		
+	}
+	100%{top: 0;
+	 
+	}
+}
+
+//<БЛОК МЕНЮ начало>============================================================================================
+.menu {
+padding: 40px 0 40px 0;
+}
+.title {
+	    font-family: $fontfamily;
+			font-size: 40px;
+			text-transform: uppercase;
+}
+.menublock {
+	.container{
+		@include flexbox();
+		
+		text-align: center;
+		flex-direction: column;
+	}
+
+		&__top {
+			margin: 0 0 20px 0;
+		}
+
+		&__logo {
+			margin-bottom: 10px;
+
+		} 
+		
+		&__nav {
+			@include flexbox();
+			justify-content:center;
+			margin: 0 0 40px 0;
+			@media (max-width: $md3+px){
+			flex-direction: column;	
+			
+			
+			}
+			
+		} 
+		  &__navitem {
+			font-family: 'Montserrat';
+			font-size: 20px;
+			text-transform: uppercase;
+			margin: 0px 30px 0px 0px ;
+			@media (max-width: $md2+px){
+				font-size: 16px;
+				
+				
+			}
+			@media (max-width: $md3+px){
+				margin: 0 0 10px 0;
+				
+			}
+			
+			& a{
+				display: inline-block;
+				position: relative;
+				cursor: pointer;
+    		line-height: 1;
+    		text-decoration: none; }
+			&:last-child{margin: 0;}	
+			&.active{color:#cd9a2d;}
+			& a:after{
+				display: block;
+				content: "";
+				background-color: #cd9a2d;
+				height: 2px;
+				width: 0%;
+				left: 50%;
+				position: absolute;
+				-webkit-transition: width .3s ease-in-out;
+				-moz--transition: width .3s ease-in-out;
+				transition: width .3s ease-in-out;
+				transform: translateX(-50%);
+						}
+				& a:hover:after{
+					width: 100%;
+				}
+			}
+		  &__item {
+			
+			font-size: 15px;
+		}
+}
+
+.menublock {
+
+		&__row {
+			display: flex;
+			margin: 0px -20px;
+			flex-wrap: wrap;
+			@media (max-width: $md3+px){
+				justify-content: center;}
+		}
+
+		&__column {
+			flex: 0 1 25%;
+			padding: 15px 20px;
+			display: flex;
+			cursor: pointer;
+				@media (max-width: $md1+px){
+					flex: 0 1 33.333%;
+				}
+				@media (max-width: $md2+px){
+					flex: 0 1 50%;
+				}
+				@media (max-width: $md3+px){
+					flex: 0 1 100%;
+					padding: 15px 40px;
+					max-width: 350px;}
+
+			& :hover {
+			 box-shadow: 0px 4px 4.5px 1.5px rgba(0, 0, 0, 0.8);}
+	}
+}
+.column-item {
+	display: flex;
+	flex-direction: column;
+	box-shadow: none;
+	padding: 15px 15px;
+	border: solid 1px #cd9a2d ;
+	border-radius: 5px;
+	margin-bottom: 50px;
+	background-color: rgba($color: #cd9a2d , $alpha: 0.85) ;
+
+	& :hover {
+			 box-shadow: none;
+			 }
+	&__title {
+			font-family: 'tangak';
+			font-size: 16px;
+			margin: 0px 0px 25px 0px;}
+
+		&__image {
+			margin: 0px 0px 15px 0px;
+			border-radius: 5px;
+			overflow: hidden;
+			& img{
+				width: 100%;
+				height: 100%;
+			  -o-object-fit: cover;
+			     object-fit: cover;}
+		}
+
+		&__text {
+			font-family: 'neucha';
+			margin-bottom: 20px;
+			flex: 1 1 auto;
+			
+		}
+
+		&__spoller {
+			flex: 1 1 auto;
+			
+		}
+.spoller {
+	
+	
+	 &__title{
+			position: relative;
+			text-transform: uppercase;
+			color: white;
+			margin-bottom: 10px;
+			cursor: pointer;
+      &::before,&::after{
+      content: '';
+			width: 8px;
+			height: 1px;
+			background-color: white;
+			position: absolute;
+			top: 6px;
+			transition: all 0.4s ease 0s;
+			}
+			&::before{
+				content: '';
+				transform: rotate(40deg);
+				left: 73px;
+			}
+			&::after{
+				content: '';
+				transform: rotate(-40deg);
+				left: 79px;
+			}
+			
+			}
+		&__title.active::before,&__title.active::after{
+			background-color: red;
+		
+		}
+		&__title.active::before{
+	      content: '';
+				transform: rotate(-40deg);
+		}
+    &__title.active::after{
+	      content: '';
+				transform: rotate(40deg);
+}
+		&__text {
+			display: none;
+		}
+}
+
+		&__button {
+	
+			
+			& a {
+	display: inline-block;
+	height: 40px;
+	background-color: #cd9a2d;
+	border-radius: 5px;
+	opacity: 0.8;
+	padding: 0 20px;
+	text-transform: uppercase;
+	font-size: 20px;
+	line-height: 40px;
+	font-family: 'neucha';
+	color: white;
+	text-align: center;
+	box-shadow: 0px 4px 4.5px 1.5px rgba(0, 0, 0, 0.8);
+			}
+			
+			
+		}
+}
+
+//<БЛОК МЕНЮконец>============================================================================================
+
+
+
+//<БЛОК АКЦИИначало>============================================================================================
+
+.promo {
+	padding: 60px 0 60px 0;
+	//background-color:rgba($color: #f8f6f1 , $alpha: 0.70);
+	
+}
+.promoblock{
+	//@include flexbox;
+	//flex-direction: column;
+	text-align: center;
+	&__top{
+		margin-bottom: 15px;
+		//position: absolute;
+		//z-index:5g ;
+		//left: 50%;
+		//top: 15px;
+	}
+
+}
+
+.promo-column {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	&__item {
+			@include flexbox();
+		  align-items: center;
+			max-width: 400px;
+			flex-direction: column;
+			border-radius: 5px;
+			padding: 15px 15px;
+			//background: url(/img/section-menu/slider/03.jpg) no-repeat center;			
+			//background-size: cover;
+			}
+  &__title {
+			font-family: 'tangak';
+			font-size: 16px;
+			margin-bottom: 25px;
+			color:#cd9a2d ;
+			}
+  &__text {
+			font-family:'montserrat';
+			font-size: 12px;
+			}
+}
+
+
+
+//<БЛОК АКЦИИ>============================================================================================
+
+
+
+/* Слайдер */
+.swiper-container{
+	
+	width: 100%;
+  height: 100%;
+}
+.parallax-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 130%;
+  height: 100%;
+  -webkit-background-size: cover;
+  background-size: cover;
+	background-position: center;
+	
+
+}
+.swiper-container {
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+.swiper-slide {
+  font-size: 18px;
+  color:#fff;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 40px 60px;
+}
+.swiper-wrapper{
+
+}
+
+.swiper-button-prev,  .swiper-button-next {
+color:#fff;
+}
+
+.swiper-pagination-bullet {
+	width: 15px;
+	height: 15px;
+
+
+	background-color: #fff;
+}
+//====================================================================================================
+//Блок О НАС
+.about, section {
+	padding: 40px 0px;
+}
+
+.about-block  {
+	
+	text-align: center;
+
+		
+}
+.about-row {
+	@include flexbox();
+	flex-wrap: wrap;
+	margin: 0px -20px;
+	
+
+		&__column {
+			padding: 10px 20px;
+			flex: 1 0 33.333%;
+			display: flex;
+			transition: ( all 0.3s ease 0.1s );
+			cursor: pointer;
+			&:hover{
+				transform: scale(1.10);
+			}
+			@media (max-width: $md2+px){
+				flex: 1 0 50%;
+			}
+			@media (max-width: $md3+px){
+				flex: 1 0 100%;
+				justify-content: center;
+				
+			}
+			}
+
+		&__item {
+			
+		//border: solid rgb(3, 3, 3) 1px;
+			text-align: center;
+			padding: 10px 30px;
+			overflow: hidden;
+			
+		  display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			@media (max-width: $md3+px){
+				max-width: 260px;
+			}
+			@media (max-width: $md2+px){
+				flex: 1 1 auto;
+			}
+			
+	}
+
+		&__img {
+			& img{max-width: 80px;}
+
+			margin-bottom: 20px;}
+
+		&__title {
+			font-size: 18px;
+			margin-bottom: 20px;}
+
+		&__text {
+			font-size: 14px;
+		line-height: 1.7;}
+}
+
+//</ОСНОВНОЙ БЛОК>====================================================================================================
+
+.logo {
+	margin-bottom: 10px;
+	& img {max-width: 60px;}
+	
+}
+.title{
+	font-size: 30px;
+	text-transform: uppercase;
+}
+
+
+
+.contact {
+	background-color: #f5efef;
+}
+ .section-block{
+	 text-align: center;
+
+ } 
+.contact-block {
+
+		&__top {
+			margin-bottom: 50px;
+		}
+
+		
+
+		&__row {
+			@include flexbox();
+			justify-content: space-between;
+			margin-bottom: 50px;
+			
+		}
+
+		&__column {
+			flex: 1 1 33.333%;
+			
+			
+		}
+
+		&__item {
+		}
+
+		&__link {
+		}
+}
+
+
+.contact-item {
+
+		&__icon {
+		}
+
+		&__title {
+			font-size: 16px;
+		}
+}
+.icon-map,.icon-phone, .icon-mail{
+	font-size: 40px;
+	&:hover{
+		color: #cd9a2d;
+	}
+}
