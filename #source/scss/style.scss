@@ -193,8 +193,8 @@ body {
 }
 
 //<БЛОК МЕНЮ начало>============================================================================================
-.menu {
-padding: 40px 0 40px 0;
+section {
+padding: 150px 0 40px 0;
 }
 .title {
 	    font-family: $fontfamily;
@@ -269,16 +269,15 @@ padding: 40px 0 40px 0;
 					width: 100%;
 				}
 			}
-		  &__item {
-			
-			font-size: 15px;
-		}
+		  
 }
 
 .menublock {
 
 		&__row {
-			display: flex;
+			@include flexbox();
+			font-size: 15px;
+			//display: flex;
 			margin: 0px -20px;
 			flex-wrap: wrap;
 			@media (max-width: $md3+px){
@@ -288,6 +287,7 @@ padding: 40px 0 40px 0;
 		&__column {
 			flex: 0 1 25%;
 			padding: 15px 20px;
+			//@include flexbox();
 			display: flex;
 			cursor: pointer;
 				@media (max-width: $md1+px){
@@ -309,6 +309,7 @@ padding: 40px 0 40px 0;
 	display: flex;
 	flex-direction: column;
 	box-shadow: none;
+	transition: all 0.5s ease;
 	padding: 15px 15px;
 	border: solid 1px #cd9a2d ;
 	border-radius: 5px;
@@ -343,6 +344,7 @@ padding: 40px 0 40px 0;
 
 		&__spoller {
 			flex: 1 1 auto;
+			margin-bottom: 10px;
 			
 		}
 .spoller {
@@ -376,7 +378,7 @@ padding: 40px 0 40px 0;
 			
 			}
 		&__title.active::before,&__title.active::after{
-			background-color: red;
+			background-color: black ;
 		
 		}
 		&__title.active::before{
@@ -421,11 +423,8 @@ padding: 40px 0 40px 0;
 
 //<БЛОК АКЦИИначало>============================================================================================
 
-.promo {
-	padding: 60px 0 60px 0;
-	//background-color:rgba($color: #f8f6f1 , $alpha: 0.70);
-	
-}
+//.promo {padding: 60px 0 60px 0;
+	//background-color:rgba($color: #f8f6f1 , $alpha: 0.70);}
 .promoblock{
 	//@include flexbox;
 	//flex-direction: column;
@@ -519,9 +518,7 @@ color:#fff;
 }
 //====================================================================================================
 //Блок О НАС
-.about, section {
-	padding: 40px 0px;
-}
+//.about, section {padding: 40px 0px;}
 
 .about-block  {
 	
