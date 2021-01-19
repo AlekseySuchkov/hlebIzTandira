@@ -72,8 +72,12 @@ ol.counter{list-style-type: none;counter-reset:item;
 	}
 }
 //=====================================================================================================================
-.tab__item{display: none;
-	&.active{display: block;}
+.tab__item{transform: translate(-150% , 0%);
+	//display: none;
+	&.active{transform: translate(0% , 0%);
+		transition: all 0.5s ease;
+		//display: block;}
+		 }
 }
 //=====================================================================================================================
 .mirror{transform: scale(-1,1);}
