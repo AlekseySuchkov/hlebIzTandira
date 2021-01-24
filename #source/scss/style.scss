@@ -3,7 +3,7 @@
 //</МИКСИНЫ>===============================================================================================
 
 //<ШРИФТЫ>===============================================================================================
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
 @font-face {
 	font-family: 'tangak';
 	src: url('../fonts/tangak.eot');
@@ -648,4 +648,84 @@ color:#fff;
 	&:hover{
 		color: #cd9a2d;
 	}
+}
+
+ //</footer>=============================================================================
+
+footer {
+	background-color: #301a03;
+}
+.footer-body {
+	@include flexbox();
+	justify-content: space-between;
+	align-items: center;
+	padding: 40px 0;
+	
+}
+.footer-content {
+@include flexbox();
+flex: 1 1 20%;
+flex-direction: column;
+align-items: center;
+row-gap: 10px;
+    &__logo {
+			
+			& img {
+				width: 60px;
+			}
+		}
+
+		&__text {
+			
+			font-size: 14px;
+			color: #fff;
+
+		}
+
+		
+}
+.footer-icons {
+	@include flexbox();
+	column-gap: 10px;
+	&__link {
+		//display: block;
+		& img {
+			width: 25px;
+		}
+	}
+}
+.footer-menu {
+	flex: 1 1 40%;
+	font-size: 14px;
+	& li {
+		margin-bottom: 10px;
+	}
+	& a {
+		display: inline-block;
+		color: #fff;
+		
+
+	}
+}
+.footer-contact {
+	flex: 1 1 40%;
+	font-size: 14px;
+	@include flexbox();
+	flex-direction: column;
+	row-gap: 10px;
+& a {
+	color: #fff;
+	font-size: 14px;
+}
+		&__address {
+		}
+
+		&__phone {
+		}
+
+		&__mail {
+		}
+
+		&__support {
+		}
 }
