@@ -1,29 +1,37 @@
-<div class="form-wrapper">
-  <div class="form">
-    <form action="#" id="form" class="form__body">
-      <h1 class="form__title">Отправте заявку и мы свяжемся с вами для подтверждения заказа</h1>
-      <div class="form__item">
-        <label for="forName" class="form__label">Имя*</label>
-        <input type="text" name="name" id="forName" class="form__input">
+<div id="popup" class="popup">
+  <div class="popup__body">
+    <div class="popup__content">
+      <a href="#" class="popup__close close-popup">X</a>
+      <div class="form">
+        <form action="#" id="form" class="form__body">
+          <h1 class="form__title">Отправте заявку и мы свяжемся с вами для подтверждения заказа</h1>
+          <div class="form__item">
+            <label for="forName" class="form__label">Имя*</label>
+            <input type="text" name="name" id="forName" class="form__input">
+          </div>
+          <div class="form__item">
+            <label for="forPhone" class="form__label">Номер телефона*</label>
+            <input type="text" name="phone" id="forPhone" class="form__input">
+          </div>
+          <div class="form__item">
+            <label for="forMail" class="form__label">Email*</label>
+            <input type="text" name="mail" id="forMail" class="form__input">
+          </div>
+          <div class="form__item">
+            <label for="forOrder" class="form__label">Заказ*</label>
+            <textarea name="order" id="forOrder"></textarea>
+          </div>
+          <div class="form__item">
+            <div class="checkbox">
+              <input type="checkbox" checked name="agreement" class="checkbox__input" id="formAgreement">
+              <label for="formAgreement" class="checkbox__label"><span>Я даю свое согласие на обработку персональных
+                  данных
+                  в соответствием с <a href="#">условием</a> </span></label>
+            </div>
+          </div>
+          <button class="form__button" type="submit">Отправить</button>
+        </form>
       </div>
-      <div class="form__item">
-        <label for="forPhone" class="form__label">Номер телефона*</label>
-        <input type="text" name="phone" id="forPhone" class="form__input">
-      </div>
-      <div class="form__item">
-        <label for="forMail" class="form__label">Email*</label>
-        <input type="text" name="mail" id="forMail" class="form__input">
-      </div>
-      <div class="form__item">
-        <label for="forOrder" class="form__label">Заказ*</label>
-        <textarea name="order" id="forOrder" ></textarea>
-      </div>
-      <div class="form__item">
-        <div class="checkbox">
-          <input type="checkbox" checked name="agreement" class="checkbox__input" id="formAgreement">
-          <label for="formAgreement" class="checkbox__label"><span>Я даю свое согласие на обработку персональных данных в соответствием с <a href="#">условием</a> </span></label>
-        </div>
-      </div>
-    </form>
+    </div>
   </div>
 </div>
