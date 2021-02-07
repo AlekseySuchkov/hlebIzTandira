@@ -193,6 +193,9 @@ body {
 			height: 100% ;
 			left: 0;
 			top: 0;
+			&.lock-padding{
+				position: fixed;
+			}
 			
 		}
 }
@@ -222,6 +225,7 @@ body {
 //<БЛОК МЕНЮ начало>============================================================================================
 section {
 padding: 150px 0 40px 0;
+border-bottom:#f5efef 0.5px solid;
 }
 .title {
 	    font-family: $fontfamily;

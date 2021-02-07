@@ -607,6 +607,7 @@ function map(n){
 const popupLinks = document.querySelectorAll('.popup-link');
 const body = document.querySelector('body');
 const lockPadding = document.querySelectorAll(".lock-padding");
+const imageFixed = document.querySelector('.mainblock__image')
 
 let unlock = true;
 
@@ -671,6 +672,7 @@ function bodyLock() {
 	}
 	body.style.paddingRight = lockPaddingValue;
 	body.classList.add('lock');
+	imageFixed.classList.add('lock-padding')
 
 	unlock = false;
 	setTimeout(function () {
@@ -688,6 +690,7 @@ function bodyUnLock() {
 		}
 		body.style.paddingRight = '0px';
 		body.classList.remove('lock');
+		imageFixed.classList.remove('lock-padding')
 	}, timeout);
 
 	unlock = false;
