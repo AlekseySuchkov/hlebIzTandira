@@ -61,6 +61,7 @@
   background-color: goldenrod;
   border-radius: 10px;
   text-align: center;
+  
      &__body {
 		}
 
@@ -74,7 +75,6 @@
     margin-bottom: 15px; 
     & textarea{
       resize: vertical;
-      width: 100%;
       border-radius:5px ;
     } 
     }
@@ -89,10 +89,35 @@
       border-radius: 5px;
       height: 30px;
       width: 100%;
-
+         &:focus{
+           box-shadow:0 0 15px #000; 
+         }
 		}
 
 		&__button {
+         width: 100%;
+         @include flexbox();
+         font-size: 16px;
+         justify-content: center;
+         align-items: center;
+         min-height: 60px;
+         text-transform: uppercase;
+         border-radius: 5px;
+         font-weight: 700;
+         letter-spacing: 2px;
+         background-color: #c48d0e;
+         box-shadow: 0 2px 0 #000;
+         transition: background-color 0.5s ease 0s;
+         position: relative;
+         top: 0;
+         &:hover{
+            background-color: #91690a;
+         }
+         &:active{
+            top: 2px;
+            box-shadow: 0 1px 0 #000;
+         }
+
 		}
 }
 .checkbox {
