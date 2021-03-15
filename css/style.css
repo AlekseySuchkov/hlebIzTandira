@@ -233,10 +233,16 @@ body.lock {
   border-radius: 5px;
   height: 30px;
   width: 100%;
+  -webkit-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
 }
 .form__input:focus {
   -webkit-box-shadow: 0 0 15px #000;
           box-shadow: 0 0 15px #000;
+}
+.form__input.err {
+  border: red 2px solid;
 }
 .form__button {
   width: 100%;

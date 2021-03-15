@@ -39,571 +39,6 @@ function adaptive_function() {
 	adaptive_header(w, h);
 }
 adaptive_function();
-jQuery.fn.jcOnPageFilter = function(settings) {
-	settings = jQuery.extend({
-		animateHideNShow:false,
-		focusOnLoad:false,
-		highlightColor:'',
-		textColorForHighlights:'#000000',
-		caseSensitive:false, //искать только в первом слове строки
-		hideNegatives:true,
-		addClassElems:false,
-		addClassParent:false,
-		addClassSection:false,
-		parentSearchClass:'',
-		parentSectionClass:'',
-		parentLookupClass:'jcorgFilterTextParent',
-		childBlockClass:'jcorgFilterTextChild',
-	}, settings);
-	jQuery.expr[':'].icontains = function(obj, index, meta) {                    
-		return jQuery(obj).text().toUpperCase().indexOf(meta[3].toUpperCase()) >= 0;                
-	}; 
-	if(settings.focusOnLoad) {
-	  jQuery(this).focus();
-	}
-	var rex = /(<span.+?>)(.+?)(<\/span>)/g;
-	var rexAtt = "g";
-	if(!settings.caseSensitive) {
-	   rex = /(<span.+?>)(.+?)(<\/span>)/gi;
-	   rexAtt = "gi";
-	}
-	return this.each(function() {
-		jQuery(this).keyup(function(e) {
-			if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
-				return false;
-			}
-			else {
-				
-				function hideSection() {
-					jQuery('.'+settings.parentLookupClass).closest('.'+settings.parentSectionClass).each(function() {
-						var count = 0;
-						var countElem = jQuery(this).closest('.'+settings.parentSectionClass).find('.'+settings.parentLookupClass).length;
-						jQuery(this).find('.'+settings.parentLookupClass).each(function() {
-							if (jQuery(this).css('display') == 'none') {
-								++count;
-							}
-						});
-						if (count == countElem) {
-							if(settings.animateHideNShow) {
-								jQuery(this).closest('.'+settings.parentSectionClass).fadeOut(100);
-							}
-							else {
-								jQuery(this).closest('.'+settings.parentSectionClass).hide();
-							}
-						} else {
-							if(settings.animateHideNShow) {
-								jQuery(this).closest('.'+settings.parentSectionClass).fadeIn(100);
-							}
-							else {
-								jQuery(this).closest('.'+settings.parentSectionClass).show();
-							}
-						}
-					});
-				}
-				
-				var textToFilter = jQuery(this).val();
-				if (textToFilter.length > 0) {
-					if(settings.hideNegatives) {
-						//addClass
-						if(settings.addClassElems) {
-							jQuery('.'+settings.childBlockClass).removeClass('search-results');
-						}
-						if(settings.addClassParent) {
-							jQuery('.'+settings.parentLookupClass).removeClass('search-results');
-						}
-						if(settings.addClassSection) {
-							jQuery('.'+settings.parentSectionClass).removeClass('search-results');
-						}
-						if(settings.animateHideNShow) {
-							if (settings.parentSearchClass != '') {
-								jQuery('.'+settings.parentSearchClass).find('.'+settings.parentLookupClass).stop(true, true).fadeOut('slow');
-							} else {
-								jQuery('.'+settings.parentLookupClass).stop(true, true).fadeOut('slow');
-							}
-						}
-						else {
-							if (settings.parentSearchClass != '') {
-								jQuery('.'+settings.parentSearchClass).find('.'+settings.parentLookupClass).stop(true, true).hide();
-							} else {
-								jQuery('.'+settings.parentLookupClass).stop(true, true).hide();
-							}
-						}
-					}
-					var _cs = "icontains";
-					if(settings.caseSensitive) {
-					  _cs = "contains";
-					}
-					//условие проверки области поиска
-					if (settings.parentSearchClass != '') {
-						var currentElem = jQuery('.'+settings.parentSearchClass).find('.'+settings.childBlockClass);
-					} else {
-						var currentElem = jQuery('.'+settings.childBlockClass);
-					}
-					jQuery.each(currentElem,function(i,obj) {
-					  jQuery(obj).html(jQuery(obj).html().replace(new RegExp(rex), "$2"));  
-					});
-					//условие проверки области поиска
-					if (settings.parentSearchClass != '') {
-						var currentElem2 = jQuery('.'+settings.parentSearchClass).find('.'+settings.childBlockClass+":"+_cs+"(" + textToFilter + ")");
-					} else {
-						var currentElem2 = jQuery('.'+settings.childBlockClass+":"+_cs+"(" + textToFilter + ")");
-					}
-					jQuery.each(currentElem2,function(i,obj) {
-						if(settings.hideNegatives) {
-							if(settings.animateHideNShow) {
-								//jQuery(obj).parent().stop(true, true).fadeIn('slow');
-								//jQuery(obj).addClass('search-results').closest('.'+settings.parentLookupClass).stop(true, true).fadeIn('slow');
-								if(settings.addClassElems) {
-									jQuery(obj).addClass('search-results').closest('.'+settings.parentLookupClass).stop(true, true).fadeIn('slow');
-								} else {
-									jQuery(obj).closest('.'+settings.parentLookupClass).stop(true, true).fadeIn('slow');
-								}
-							}
-							else {
-								//jQuery(obj).parent().stop(true, true).show();
-								//jQuery(obj).addClass('search-results').closest('.'+settings.parentLookupClass).stop(true, true).show();
-								if(settings.addClassElems) {
-									jQuery(obj).addClass('search-results').closest('.'+settings.parentLookupClass).stop(true, true).show();
-								} else {
-									jQuery(obj).closest('.'+settings.parentLookupClass).stop(true, true).show();
-								}
-							}
-						}
-						if(settings.addClassParent) {
-							jQuery(obj).closest('.'+settings.parentLookupClass).addClass('search-results');
-						}
-						if(settings.addClassSection) {
-							jQuery(obj).closest('.'+settings.parentSectionClass).addClass('search-results');
-						}
-						var newhtml = jQuery(obj).text();
-						jQuery(obj).html(newhtml.replace(
-						new RegExp(textToFilter, rexAtt), 
-						function(match) {
-							//return ["<span style='background:"+settings.highlightColor+";color:"+settings.textColorForHighlights+"'>", match, "</span>"].join("");
-							return ["", match, ""].join("");
-							//return ["<span>", match, "</span>"].join("");
-						}));
-						/*
-						jQuery(obj).find('.searchable').each(function () {
-							var $elem = $(this);
-							$elem.html( $elem.text().replace(
-							new RegExp(textToFilter, rexAtt), 
-							function(match) {
-								return ["<span style='background:"+settings.highlightColor+";color:"+settings.textColorForHighlights+"'>", match, "</span>"].join("");
-							}));
-						});*/
-					});
-					
-					//вызов функции для оценки пустоты родителя
-					if (settings.parentSectionClass != '') {
-						if(settings.animateHideNShow) {
-							setTimeout(hideSection, 1000);
-						}
-						else {
-							hideSection();
-						}
-					}
-					
-				} else { //все стерли из строки
-					//условие проверки области поиска
-					if (settings.parentSearchClass != '') {
-						var currentElem = jQuery('.'+settings.parentSearchClass).find('.'+settings.childBlockClass);
-					} else {
-						var currentElem = jQuery('.'+settings.childBlockClass);
-					}
-					jQuery.each(currentElem,function(i,obj) {
-						var html = jQuery(obj).html().replace(new RegExp(rex), "$2");
-						if(settings.addClassElems) {
-							jQuery(obj).removeClass('search-results').html(html);
-						} else {
-							jQuery(obj).html(html);
-						}
-						if(settings.addClassParent) {
-							jQuery(obj).closest('.'+settings.parentLookupClass).removeClass('search-results');
-						}
-						if(settings.addClassSection) {
-							jQuery(obj).closest('.'+settings.parentSectionClass).removeClass('search-results');
-						}
-					});
-					if(settings.hideNegatives) {
-						//условие проверки области поиска
-						if (settings.parentSearchClass != '') {
-							if (settings.parentSectionClass != '') {
-								var currentElem2 = jQuery('.'+settings.parentSearchClass).find('.'+settings.parentSectionClass);
-							}
-							var currentElem3 = jQuery('.'+settings.parentSearchClass).find('.'+settings.parentLookupClass);
-						} else {
-							if (settings.parentSectionClass != '') {
-								var currentElem2 = jQuery('.'+settings.parentSectionClass);
-							}
-							var currentElem3 = jQuery('.'+settings.parentLookupClass);
-						}
-						
-						if(settings.animateHideNShow) {
-							if (settings.parentSectionClass != '') {
-								currentElem2.stop(true, true).fadeIn('slow');
-							}
-							currentElem3.stop(true, true).fadeIn('slow');
-						}
-						else {
-							if (settings.parentSectionClass != '') {
-								currentElem2.stop(true, true).show();
-							}
-							currentElem3.stop(true, true).show();
-						}
-					}
-				}
-			}
-		});
-	});
-};
-
-
-//SLIDERS
-if ($('.mainslider').length > 0) {
-	$('.mainslider').slick({
-		//autoplay: true,
-		//infinite: false,
-		dots: true,
-		arrows: false,
-		accessibility: false,
-		slidesToShow: 1,
-		autoplaySpeed: 3000,
-		//asNavFor:'',
-		//appendDots:
-		//appendArrows:$('.mainslider-arrows .container'),
-		nextArrow: '<button type="button" class="slick-next"></button>',
-		prevArrow: '<button type="button" class="slick-prev"></button>',
-		responsive: [{
-			breakpoint: 768,
-			settings: {}
-		}]
-	});
-}
-
-
-//SLICK FIX
-if ($('.objects-slider').length > 0) {
-	var slider = $('.objects-slider');
-	slider.slick({
-		//autoplay: true,
-		//infinite: false,
-		infinite: true,
-		dots: true,
-		arrows: true,
-		accessibility: false,
-		slidesToShow: 2,
-		slidesToScroll: 1,
-		autoplaySpeed: 3000,
-		speed: 500,
-		waitForAnimate: false,
-		//asNavFor:'',
-		//appendDots:
-		appendDots: $('.objects-controls'),
-		appendArrows: $('.objects-controls'),
-		nextArrow: '<button type="button" class="slick-next"></button>',
-		prevArrow: '<button type="button" class="slick-prev"></button>',
-		responsive: [{
-			breakpoint: 768,
-			settings: {
-				slidesToShow: 1,
-				slidesToScroll: 1,
-			}
-		}]
-	});
-	var sltoshow = slider.get(0).slick.options.slidesToShow;
-	var all = slider.find('.slick-slide').length;
-	var allactive = slider.find('.slick-slide').not('.slick-cloned').length;
-	slider.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-		if (nextSlide == 0) {
-			var ind = all - allactive;
-			if (sltoshow == 1) {
-				slider.find('.slick-slide').eq(ind).addClass('active');
-			} else {
-				sliderfix(slider, ind);
-			}
-		}
-		if (nextSlide == allactive - 1) {
-			if (sltoshow == 1) {
-				slider.find('.slick-slide').eq(0).addClass('active');
-			} else {
-				sliderfix(slider, sltoshow - 1);
-			}
-		}
-
-		//DIRECTION
-		if (currentSlide === 0 && nextSlide === slick.$slides.length - 1) {
-			direction = 'prev';
-		} else if (nextSlide > currentSlide || (currentSlide === (slick.$slides.length - 1) && nextSlide === 0)) {
-			direction = 'next';
-		} else {
-			direction = 'prev';
-		}
-		//console.log(direction);
-	});
-	slider.on('afterChange', function (event, slick, currentSlide) {
-		slider.find('.slick-slide').removeClass('active');
-	});
-	function sliderfix(slider, v) {
-		for (var i = 0; i < sltoshow; i++) {
-			var n = v + i;
-			slider.find('.slick-slide').eq(n).addClass('active');
-		}
-	}
-
-
-}
-
-if ($('.newsmodule-slider').length > 0) {
-	$('.newsmodule-slider').slick({
-		//autoplay: true,
-		//infinite: false,
-		fade: true,
-		dots: false,
-		arrows: false,
-		accessibility: false,
-		slidesToShow: 1,
-		autoplaySpeed: 3000,
-		//asNavFor:'',
-		//appendDots:
-		//appendArrows:$('.mainslider-arrows .container'),
-		nextArrow: '<button type="button" class="slick-next fa fa-angle-right"></button>',
-		prevArrow: '<button type="button" class="slick-prev fa fa-angle-left"></button>',
-		responsive: [{
-			breakpoint: 768,
-			settings: {}
-		}]
-	});
-	//Опция
-	$('.newsmodule-slider').get(0).slick.options.slidesToShow
-
-	$('.newsmodule-items-item').click(function (event) {
-		$('.newsmodule-items-item').removeClass('active');
-		$(this).addClass('active');
-		$('.newsmodule-slider').slick('goTo', $(this).index());
-	});
-	$('.newsmodule-navigator-info span').eq(1).html($('.newsmodule-items-item').length);
-
-	$('.newsmodule-slider').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-		$('.newsmodule-navigator-info span').eq(0).html(nextSlide + 1);
-	});
-	$('.newsmodule-slider').on('afterChange', function (event, slick, currentSlide) {
-		$('.newsmodule-navigator-info span').eq(0).html(currentSlide + 1);
-	});
-	$('.newsmodule-navigator__arrow.fa-angle-left').click(function (event) {
-		$('.newsmodule-slider').slick('slickPrev');
-	});
-	$('.newsmodule-navigator__arrow.fa-angle-right').click(function (event) {
-		$('.newsmodule-slider').slick('slickNext');
-	});
-}
-
-	sectors($(this).scrollTop());
-$(window).scroll(function(event) {
-		var scr=$(this).scrollTop();
-	sectors(scr);
-});
-function sectors(scr){
-		var w=$(window).outerWidth();
-		var h=$(window).outerHeight();
-		var headerheight=80;
-	if(w<768){headerheight=50;}
-	if(scr>0){
-		$('header').addClass('scroll');
-	}else{
-		$('header').removeClass('scroll');
-	}
-	if(scr>h){
-		$('#up').fadeIn(300);
-	}else{
-		$('#up').fadeOut(300);
-	}
-	$.each($('.sector'), function(index, val) {
-			var th=$(this).outerHeight();
-			var tot=$(this).offset().top;
-		if(scr>=tot && scr<=tot+th-h){
-			$('.sector.scroll').removeClass('scroll');
-			$(this).addClass('scroll');
-		}
-		if($(this).hasClass('scroll')){
-			if(scr>=tot && scr<=tot+th-h){
-				if($(this).hasClass('normalscroll')){
-					$('body').addClass('scroll');
-				}else{
-					$('body').removeClass('scroll');
-				}
-			}else{
-				if($(this).hasClass('normalscroll')){
-					$('body').removeClass('scroll');
-				}
-			}
-		}
-		if(scr>tot-h/1.5 && scr<tot+th){
-			if($('.dotts').length>0){
-				dotts(index,0);
-			}
-			$(this).addClass('active');
-		}else{
-			$(this).removeClass('active');
-		}
-		if(scr>tot-h && scr<tot+th){
-			$(this).addClass('view');
-			if($(this).hasClass('padding')){
-					var ps=100-(tot-scr)/h*100;
-					var p=headerheight/100*ps;
-				if(p>=headerheight){p=headerheight;}
-				$(this).css({paddingTop:p});
-			}
-		}else{
-			$(this).removeClass('view');
-		}
-	});
-	/*
-	$.each($('.lz').not('.load'), function(index, val) {
-			var img=$(this).data('image');
-		if(scr>tot-h && scr<tot+th){
-			$(this).html('<img src="'+img+'" alt="" />');
-			$(this).addClass('load');
-		}
-	});
-	*/
-}
-function dotts(ind,init){
-	if(init==true){
-		$.each($('.sector'), function(index, val) {
-			$('.dotts-list').append('<li></li>');
-		});
-	}
-	$('.dotts-list li').removeClass('active').eq(ind).addClass('active');
-}
-$('body').on('click', '.dotts-list li', function(event) {
-		var n=$(this).index()+1;
-		var offset=0;
-	$('body,html').animate({scrollTop: $('.sector-'+n).offset().top+offset},800, function() {});
-});
-function map(n){
-	google.maps.Map.prototype.setCenterWithOffset= function(latlng, offsetX, offsetY) {
-		var map = this;
-		var ov = new google.maps.OverlayView(); 
-		ov.onAdd = function() { 
-			var proj = this.getProjection(); 
-			var aPoint = proj.fromLatLngToContainerPixel(latlng);
-			aPoint.x = aPoint.x+offsetX;
-			aPoint.y = aPoint.y+offsetY;
-			map.panTo(proj.fromContainerPixelToLatLng(aPoint));
-			//map.setCenter(proj.fromContainerPixelToLatLng(aPoint));
-		}
-		ov.draw = function() {};
-		ov.setMap(this);
-	};
-	var markers = new Array();
-	var infowindow = new google.maps.InfoWindow({
-		//pixelOffset: new google.maps.Size(-230,250)
-	});
-	var locations = [
-		[new google.maps.LatLng(53.819055,27.8813694)],
-		[new google.maps.LatLng(53.700055,27.5513694)],
-		[new google.maps.LatLng(53.809055,27.5813694)],
-		[new google.maps.LatLng(53.859055,27.5013694)],
-	]
-	var options = {
-		zoom: 10,
-		panControl:false,
-		mapTypeControl:false,
-		center: locations[0][0],
-		styles:[{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#e0efef"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"hue":"#1900ff"},{"color":"#c0e8e8"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":700}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#7dcdcd"}]}],
-		scrollwheel:false,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	}; 
-	var map = new google.maps.Map(document.getElementById('map'), options);
-	var icon={
-		url:'img/icons/map.svg',
-		scaledSize: new google.maps.Size(18, 20),
-		anchor: new google.maps.Point(9, 10)
-	}
-	for (var i = 0; i < locations.length; i++) {
-		var marker = new google.maps.Marker({
-			icon:icon,
-			position: locations[i][0],
-			map: map,
-		});
-		google.maps.event.addListener(marker, 'click', (function (marker, i) {
-			return function () {
-				for (var m = 0; m < markers.length; m++) {
-					markers[m].setIcon(icon);
-				}
-					var cnt=i+1;
-				infowindow.setContent($('.contacts-map-item_'+cnt).html());
-				infowindow.open(map, marker);
-				marker.setIcon(icon);
-				map.setCenterWithOffset(marker.getPosition(),0,0);
-				setTimeout(function(){
-					baloonstyle();
-				},10);
-			}
-		})(marker, i));
-		markers.push(marker);
-	}
-
-	if(n){
-			var nc=n-1;
-		setTimeout(function(){
-			google.maps.event.trigger(markers[nc], 'click');
-		},500);
-	}
-}
-function baloonstyle(){
-	$('.gm-style-iw').parent().addClass('baloon');
-	$('.gm-style-iw').prev().addClass('baloon-style');
-	$('.gm-style-iw').next().addClass('baloon-close');
-	$('.gm-style-iw').addClass('baloon-content');
-}
-if($("#map").length>0){
-	map(1);
-}
-
-
-/* YA
-function map(n){
-	ymaps.ready(init);
-	function init(){ 
-		// Создание карты.
-		var myMap = new ymaps.Map("map", {
-			// Координаты центра карты.
-			// Порядок по умолчанию: «широта, долгота».
-			// Чтобы не определять координаты центра карты вручную,
-			// воспользуйтесь инструментом Определение координат.
-			controls: [],
-			center: [43.585525,39.723062],
-			// Уровень масштабирования. Допустимые значения:
-			// от 0 (весь мир) до 19.
-			zoom: 10
-		});
-		
-		myPlacemar = new ymaps.Placemark([43.585525,39.723062],{
-			id:'2'
-		},{
-			// Опции.
-			hasBalloon:false,
-			hideIconOnBalloonOpen:false,
-			// Необходимо указать данный тип макета.
-			iconLayout: 'default#imageWithContent',
-			// Своё изображение иконки метки.
-			iconImageHref: 'img/icons/map.svg',
-			// Размеры метки.
-			iconImageSize: [40, 40],
-			// Смещение левого верхнего угла иконки относительно
-			// её "ножки" (точки привязки).
-			iconImageOffset: [-20, -20],
-			// Смещение слоя с содержимым относительно слоя с картинкой.
-			iconContentOffset: [0,0],
-		});
-		myMap.geoObjects.add(myPlacemar);
-
-		myMap.behaviors.disable('scrollZoom');
-	}
-}
-*/
 const popupLinks = document.querySelectorAll('.popup-link');
 const body = document.querySelector('body');
 const lockPadding = document.querySelectorAll(".lock-padding");
@@ -955,9 +390,10 @@ mainblock();
 
 //Подключение slick-slider
 
-$(document).ready(function () {
+/*$(document).ready(function () {
 	$('.slider').slick();
-});
+});*/
+
 //Сполер
 $(document).ready(function () {
 	$('.spoller__title').click(function (event) {
@@ -1007,5 +443,60 @@ $(document).ready(function () {
 		$(this).addClass('active');
 	});
 });
+
+
+//Валидация формы
+
+
+
+
+const form = document.querySelector("form");
+
+const regExpEmail = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
+const regExpPhone = /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/;
+
+const validateElem = (elem) => {
+	if (elem.name === 'name') {
+		console.log(elem);
+	}
+	if (elem.name === 'phone') {
+		if (!regExpPhone.test(elem.value) && elem.value != '') {
+			elem.nextElementSibling.textContent = 'Введите корректный номер телефона!';
+		} else {
+			elem.nextElementSibling.textContent = '';
+		}
+	}
+	if (elem.name === 'mail') {
+		if (!regExpEmail.test(elem.value) && elem.value != '') {
+			elem.nextElementSibling.textContent = 'Введите корректный Email!';
+		} else {
+			elem.nextElementSibling.textContent = '';
+		}
+	}
+}
+
+for (let elem of form.elements) {
+	if (!elem.classList.contains('checkbox__input') && elem.tagName != 'BUTTON') {
+		elem.addEventListener('blur', () => {
+			validateElem(elem);
+		});
+	}
+}
+
+form.addEventListener('submit', (even) => {
+	even.preventDefault();
+	for (let elem of form.elements) {
+		if (!elem.classList.contains('checkbox__input') && elem.tagName != 'BUTTON') {
+			if (elem.value === '') {
+				console.log(elem)
+				elem.classList.add('err');
+			} else {
+				elem.classList.remove('err');
+			}
+		}
+	}
+
+});
+
 
 });

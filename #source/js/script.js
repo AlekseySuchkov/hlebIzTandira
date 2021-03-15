@@ -222,9 +222,10 @@ mainblock();
 
 //Подключение slick-slider
 
-$(document).ready(function () {
+/*$(document).ready(function () {
 	$('.slider').slick();
-});
+});*/
+
 //Сполер
 $(document).ready(function () {
 	$('.spoller__title').click(function (event) {
@@ -274,3 +275,58 @@ $(document).ready(function () {
 		$(this).addClass('active');
 	});
 });
+
+
+//Валидация формы
+
+
+
+
+const form = document.querySelector("form");
+
+const regExpEmail = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
+const regExpPhone = /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/;
+
+const validateElem = (elem) => {
+	if (elem.name === 'name') {
+		console.log(elem);
+	}
+	if (elem.name === 'phone') {
+		if (!regExpPhone.test(elem.value) && elem.value != '') {
+			elem.nextElementSibling.textContent = 'Введите корректный номер телефона!';
+		} else {
+			elem.nextElementSibling.textContent = '';
+		}
+	}
+	if (elem.name === 'mail') {
+		if (!regExpEmail.test(elem.value) && elem.value != '') {
+			elem.nextElementSibling.textContent = 'Введите корректный Email!';
+		} else {
+			elem.nextElementSibling.textContent = '';
+		}
+	}
+}
+
+for (let elem of form.elements) {
+	if (!elem.classList.contains('checkbox__input') && elem.tagName != 'BUTTON') {
+		elem.addEventListener('blur', () => {
+			validateElem(elem);
+		});
+	}
+}
+
+form.addEventListener('submit', (even) => {
+	even.preventDefault();
+	for (let elem of form.elements) {
+		if (!elem.classList.contains('checkbox__input') && elem.tagName != 'BUTTON') {
+			if (elem.value === '') {
+				console.log(elem)
+				elem.classList.add('err');
+			} else {
+				elem.classList.remove('err');
+			}
+		}
+	}
+
+});
+
