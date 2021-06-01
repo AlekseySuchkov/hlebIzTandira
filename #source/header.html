@@ -12,13 +12,46 @@
 				<nav class="header-right-menu">
 					<ul class="header-right-menu__list">
 
-						<li><a href="#menu" class="header-right-menu__link">меню</a></li>
-						<li><a href="#" class="header-right-menu__link">акции</a></li>
-						<li><a href="#" class="header-right-menu__link active">контакты</a></li>
-						<li><a href="#" class="header-right-menu__link">о нас</a></li>
-						<li><a href="#" class="header-right-menu__link">отзывы</a></li>
-
+						<li><a data-goto=".menu" href="#" class="header-right-menu__link">меню</a></li>
+						<li><a data-goto=".promo" href="#" class="header-right-menu__link">акции</a></li>
+						<li><a data-goto=".contact" href="#" class="header-right-menu__link active">контакты</a></li>
+						<li><a data-goto=".about" href="#" class="header-right-menu__link">о нас</a></li>
+						<li><a data-goto="" href="#" class="header-right-menu__link">отзывы</a></li>
 					</ul>
+					<div class="header-right-menu__cart cart" tabindex="0">
+						<div class="cart__text">
+							Корзина
+							<span class="cart__quantity">0</span>
+						</div>
+						<div class="cart-content">
+							<ul class="cart-content__list" data-simplebar>
+								<!--<li class="cart-content__item">
+									<article class="cart-content__product cart-product">
+										<img src="/img/section-menu/slider/03.jpg" alt="Хачапури" class="cart-product__img">
+										<div class="cart-product__text">
+											<h3 class="cart-product__title">Хачапури с адыгейскм сыром и сулугуни</h3>
+											<span class="cart-product__price"> 86 р</span>
+										</div>
+										<div class="cart-product__amount">
+											<div class="cart-product__btns">
+												<button class="cart-product__plus"></button>
+												<button class="cart-product__minus"></button>
+											</div>
+											<span class="cart-product__count"> 1</span>
+										</div>
+										<button class="cart-product__delete" aria-label="Удалить товар"></button>
+									</article>
+								</li>-->
+							</ul>
+							<div class="cart-content__bottom">
+								<div class="cart-content__fullprice">
+									<span>Итого:</span>
+									<span class="fullprice">1560</span>
+								</div>
+								<button class="cart-content__btn btn">Отправить заказ</button>
+							</div>
+						</div>
+					</div>
 				</nav>
 			</div>
 		</div>

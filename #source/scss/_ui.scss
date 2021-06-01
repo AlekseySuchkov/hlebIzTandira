@@ -72,11 +72,15 @@ ol.counter{list-style-type: none;counter-reset:item;
 	}
 }
 //=====================================================================================================================
-.tab__item{transform: translate(-150% , 0%);
-	//display: none;
-	&.active{transform: translate(0% , 0%);
-		transition:  0.5s ease;
-		//display: block;}
+.tab__item{
+	//transform: translate(-150% , 0%);
+	
+	display: none;
+	
+	&.active{//transform: translate(0% , 0%);
+		transition: transform  0.5s ease;
+		
+		display: block;
 		 }
 }
 //=====================================================================================================================

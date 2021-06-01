@@ -1,4 +1,4 @@
-var isMobile = { Android: function () { return navigator.userAgent.match(/Android/i); }, BlackBerry: function () { return navigator.userAgent.match(/BlackBerry/i); }, iOS: function () { return navigator.userAgent.match(/iPhone|iPad|iPod/i); }, Opera: function () { return navigator.userAgent.match(/Opera Mini/i); }, Windows: function () { return navigator.userAgent.match(/IEMobile/i); }, any: function () { return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); } };
+/*var isMobile = { Android: function () { return navigator.userAgent.match(/Android/i); }, BlackBerry: function () { return navigator.userAgent.match(/BlackBerry/i); }, iOS: function () { return navigator.userAgent.match(/iPhone|iPad|iPod/i); }, Opera: function () { return navigator.userAgent.match(/Opera Mini/i); }, Windows: function () { return navigator.userAgent.match(/IEMobile/i); }, any: function () { return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); } };
 if (isMobile.any()) { }
 
 if (location.hash) {
@@ -14,7 +14,7 @@ $('.wrapper').addClass('loaded');
 var act = "click";
 if (isMobile.iOS()) {
 	var act = "touchstart";
-}
+}*/
 
 $('.header-menu__icon').click(function (event) {
 	$(this).toggleClass('active');
@@ -45,7 +45,7 @@ CLOUD-ZOOM
 //POPUP
 
 
-$('.goto').click(function () {
+/*$('.goto').click(function () {
 	var el = $(this).attr('href').replace('#', '');
 	var offset = 0;
 	$('body,html').animate({ scrollTop: $('.' + el).offset().top + offset }, 500, function () { });
@@ -55,7 +55,7 @@ $('.goto').click(function () {
 		$('body').removeClass('lock');
 	}
 	return false;
-});
+});*/
 
 function ibg() {
 	$.each($('.ibg'), function (index, val) {
@@ -74,7 +74,7 @@ $(document).on('click touchstart', function (e) {
 });
 
 //UP
-$(window).scroll(function () {
+/*$(window).scroll(function () {
 	var w = $(window).width();
 	if ($(window).scrollTop() > 50) {
 		$('#up').fadeIn(300);
@@ -84,7 +84,7 @@ $(window).scroll(function () {
 });
 $('#up').click(function (event) {
 	$('body,html').animate({ scrollTop: 0 }, 300);
-});
+});*/
 
 $('body').on('click', '.tab__navitem', function (event) {
 	var eq = $(this).index();
@@ -191,7 +191,7 @@ $('.whouse-content-body').scroll(function(event) {
 */
 
 
-if ($('.t,.tip').length > 0) {
+/*if ($('.t,.tip').length > 0) {
 	tip();
 }
 function tip() {
@@ -209,7 +209,7 @@ function tip() {
 	}).on('show.webui.popover hide.webui.popover', function (e) {
 		$(this).toggleClass('active');
 	});
-}
+}*/
 
 $(window).resize(function (event) {
 	mainblock();
@@ -285,7 +285,8 @@ $(document).ready(function () {
 const form = document.querySelector("form");
 
 const regExpEmail = /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
-const regExpPhone = /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/;
+const regExpPhone = /^\d[\d\(\)\ -]{4,14}\d$/;
+//const regExpPhone = /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/;
 
 const validateElem = (elem) => {
 	if (elem.name === 'name') {
@@ -330,3 +331,26 @@ form.addEventListener('submit', (even) => {
 
 });
 
+//Прокрутка при клике
+
+const menuLinks = document.querySelectorAll('.header-right-menu__link[data-goto]');
+console.log(menuLinks);
+if (menuLinks.length > 0) {
+	menuLinks.forEach(menuLink => {
+		menuLink.addEventListener("click", onMenuLinkClick);
+	});
+
+	function onMenuLinkClick(e) {
+		const menuLink = e.target;
+		if (menuLink.dataset.goto && document.querySelector(menuLink.dataset.goto)) {
+			const gotoBlock = document.querySelector(menuLink.dataset.goto);
+			const gotoBlockValue = gotoBlock.getBoundingClientRect().top + pageYOffset - document.querySelector('header').offsetHeight;
+
+			window.scroll({
+				top: gotoBlockValue,
+				behavior: 'smooth'
+			});
+			e.preventDefault();
+		}
+	}
+}

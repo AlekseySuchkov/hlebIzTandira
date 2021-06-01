@@ -5,11 +5,10 @@ header{
 	top: 0;
 	left: 0;
 	z-index: 50;
-	
 	max-height: 160px;
 	background-color: #301a03 ;
 	opacity: 0.9;
-	padding:10px 0  ;
+	padding: 5px 0  ;
 	@media (max-height:350px){
 		padding: 5px 0;
 	}
@@ -25,9 +24,7 @@ header{
 	}
 
 }
-.header-left {
-	
-}
+
 .header-left-logo {
 	display: block;
 	text-align: center;
@@ -35,7 +32,7 @@ header{
 
 .header-left-logo__img {
 	display: inline-block;
-	img {width: 70px;}
+	img {width: 60px;}
 	margin: 0 0 5px 0;
 	@media (max-width: $md3+px){
 		img {
@@ -69,14 +66,14 @@ header{
 	z-index: 5;
 	}
 }
-.header-right {
-}
-
-.header-right-menu {
+.header-right-menu{
+	@include flexbox();
+	align-items: center;
 	
 }
 .header-right-menu__list {
 	@include flexbox();
+	margin-right: 20px;
 	& li{
 		margin:0 20px 0 0 ;
 		&:last-child{
@@ -99,7 +96,7 @@ header{
 	color:white;
 	text-transform: uppercase;
 	font-family: 'montserrat';
-	font-size: 16px;
+	font-size: 12px;
 
 	&:hover {
 		@include anim(0.6s ,0s);
