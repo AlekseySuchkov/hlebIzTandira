@@ -43,9 +43,7 @@ const randomId = () => {
 
 
 
-const plusProductCount = (currentCount) => {
-  return currentCount += 1;
-};
+
 
 const plusFullPrice = (currentPrice) => {
   return price += currentPrice;
@@ -122,11 +120,39 @@ productBtn.forEach(el => {
 });
 
 cartProductsList.addEventListener('click', (e) => {
+
+
+
+
   if (e.target.classList.contains('cart-product__delete')) {
     deleteProducts(e.target.closest('.cart-content__item'));
   }
+
+  if (e.target.classList.contains('cart-product__plus')) {
+    plusProductCount(currentCount);
+    console.log('+');
+    console.log(plusProductCount(currentCount));
+
+  }
+
+  if (e.target.classList.contains('cart-product__minus')) {
+    minusProductCount();
+    console.log('-');
+  }
+
 });
 
+const plusProductCount = (currentCount) => {
+  return currentCount += 1;
+};
+const minusProductCount = (currentCount) => {
+
+};
+
+cart.addEventListener('click', (e) => {
+  let currentCount = cartProductsList.querySelectorAll('.cart-product__count');
+  console.log(currentCount);
+});
 
 
 
