@@ -1701,8 +1701,10 @@ section {
 
 /* Слайдер */
 .swiper-container {
+  position: relative;
   width: 100%;
   height: 100%;
+  background: #000;
 }
 
 .parallax-bg {
@@ -1713,12 +1715,6 @@ section {
   height: 100%;
   background-size: cover;
   background-position: center;
-}
-
-.swiper-container {
-  width: 100%;
-  height: 100%;
-  background: #000;
 }
 
 .swiper-slide {
